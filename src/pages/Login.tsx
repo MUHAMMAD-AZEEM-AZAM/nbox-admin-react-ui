@@ -64,9 +64,13 @@ const Login = ({ onLogin }: LoginProps) => {
               />
               <Label htmlFor="remember" className="text-sm">Remember me</Label>
             </div>
-            <a href="#" className="text-sm text-gray-600 hover:text-blue-600">
+            <button 
+              type="button"
+              onClick={() => navigate("/reset-password")}
+              className="text-sm text-gray-600 hover:text-blue-600"
+            >
               Forgot Password?
-            </a>
+            </button>
           </div>
 
           <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">

@@ -5,8 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { CreditCard, Users, UserCheck, UserX } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+  
   const stats = [
     {
       title: "Active Subscriptions",
@@ -61,6 +64,10 @@ const Dashboard = () => {
       Overdue: "bg-red-100 text-red-800"
     };
     return variants[status] || "bg-gray-100 text-gray-800";
+  };
+
+  const handleCMRAClick = () => {
+    navigate("/cmra-details");
   };
 
   return (
@@ -129,7 +136,11 @@ const Dashboard = () => {
                 </thead>
                 <tbody>
                   {cmraData.map((item, index) => (
-                    <tr key={index} className="border-b hover:bg-gray-50">
+                    <tr 
+                      key={index} 
+                      className="border-b hover:bg-gray-50 cursor-pointer"
+                      onClick={handleCMRAClick}
+                    >
                       <td className="py-3 px-4">{item.name}</td>
                       <td className="py-3 px-4">{item.planType}</td>
                       <td className="py-3 px-4">

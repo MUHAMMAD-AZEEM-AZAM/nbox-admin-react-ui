@@ -6,13 +6,17 @@ import {
   Bell, 
   CreditCard, 
   HeadphonesIcon,
-  ChevronRight 
+  ChevronRight,
+  ChevronLeft,
+  LogOut
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const menuItems = [
     {
@@ -37,12 +41,38 @@ const Sidebar = () => {
     }
   ];
 
+  const toggleSidebar = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
   return (
-    <div className="w-64 bg-white h-screen shadow-lg">
+    <div className={cn(
+      "bg-white h-screen shadow-lg transition-all duration-300 relative",
+      isCollapsed ? "w-16" : "w-64"
+    )}>
+      {/* Toggle Button */}
+      <Button
+        variant="ghost"
+        size="sm"
+        className="absolute -right-3 top-6 z-10 h-6 w-6 rounded-full border bg-white shadow-md hover:bg-gray-50"
+        onClick={toggleSidebar}
+      >
+        {isCollapsed ? (
+          <ChevronRight className="h-3 w-3" />
+        ) : (
+          <ChevronLeft className="h-3 w-3" />
+        )}
+      </Button>
+
       <div className="p-6 border-b">
         <div className="flex items-center space-x-2">
-          <h1 className="text-2xl font-bold text-blue-600">nbox</h1>
-          <ChevronRight className="h-4 w-4 text-gray-400" />
+          <h1 className={cn(
+            "text-2xl font-bold text-blue-600 transition-opacity duration-300",
+            isCollapsed ? "opacity-0" : "opacity-100"
+          )}>
+            {!isCollapsed && "nbox"}
+          </h1>
+          {!isCollapsed && <ChevronRight className="h-4 w-4 text-gray-400" />}
         </div>
       </div>
 
@@ -60,12 +90,14 @@ const Sidebar = () => {
                     "w-full justify-start text-left",
                     isActive 
                       ? "bg-blue-600 text-white hover:bg-blue-700" 
-                      : "text-gray-700 hover:bg-gray-100"
+                      : "text-gray-700 hover:bg-gray-100",
+                    isCollapsed ? "px-2" : "px-3"
                   )}
                   onClick={() => navigate(item.path)}
+                  title={isCollapsed ? item.label : ""}
                 >
-                  <Icon className="mr-3 h-4 w-4" />
-                  {item.label}
+                  <Icon className={cn("h-4 w-4", isCollapsed ? "mr-0" : "mr-3")} />
+                  {!isCollapsed && item.label}
                 </Button>
               </li>
             );
@@ -78,10 +110,22 @@ const Sidebar = () => {
           <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
             O
           </div>
-          <div>
-            <p className="text-sm font-medium">Olivia Rhye</p>
-            <p className="text-xs text-gray-500">olivia@nbox.com</p>
-          </div>
+          {!isCollapsed && (
+            <>
+              <div className="flex-1">
+                <p className="text-sm font-medium">Olivia Rhye</p>
+                <p className="text-xs text-gray-500">olivia@nbox.com</p>
+              </div>
+              <Button variant="ghost" size="sm" className="p-1">
+                <LogOut className="h-4 w-4 text-gray-600" />
+              </Button>
+            </>
+          )}
+          {isCollapsed && (
+            <Button variant="ghost" size="sm" className="p-1 w-8 h-8" title="Logout">
+              <LogOut className="h-4 w-4 text-gray-600" />
+            </Button>
+          )}
         </div>
       </div>
     </div>

@@ -11,6 +11,8 @@ import Announcements from "./pages/Announcements";
 import SubscriptionPlans from "./pages/SubscriptionPlans";
 import TicketManagement from "./pages/TicketManagement";
 import CMRADetails from "./pages/CMRADetails";
+import ResetPassword from "./pages/ResetPassword";
+import TwoFactorAuth from "./pages/TwoFactorAuth";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +31,8 @@ const App = () => {
               path="/login" 
               element={<Login onLogin={() => setIsAuthenticated(true)} />} 
             />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/two-factor-auth" element={<TwoFactorAuth />} />
             {isAuthenticated ? (
               <>
                 <Route path="/" element={<Dashboard />} />
