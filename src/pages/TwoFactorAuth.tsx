@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { CheckCircle, Plus } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface TwoFactorAuthProps {
   onComplete?: () => void;
@@ -13,6 +14,7 @@ const TwoFactorAuth = ({ onComplete, onCancel }: TwoFactorAuthProps) => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const [isVerified, setIsVerified] = useState(false);
   const [timeLeft, setTimeLeft] = useState(28);
+  const navigate = useNavigate();
 
   const handleCodeChange = (index: number, value: string) => {
     if (value.length <= 1) {
@@ -33,7 +35,13 @@ const TwoFactorAuth = ({ onComplete, onCancel }: TwoFactorAuthProps) => {
     setIsVerified(true);
     setTimeout(() => {
       onComplete?.();
+      navigate("/dashboard");
     }, 2000);
+  };
+
+  const handleCancel = () => {
+    onCancel?.();
+    navigate("/reset-password");
   };
 
   return (
@@ -69,7 +77,7 @@ const TwoFactorAuth = ({ onComplete, onCancel }: TwoFactorAuthProps) => {
 
           <div className="text-center">
             <button className="text-sm text-gray-600">
-              Resend Code <span className="text-gray-400">({String(timeLeft).padStart(2, '0')}:28)</span>
+              Resend Code <span className="text-gray-400">(00:{String(timeLeft).padStart(2, '0')})</span>
             </button>
           </div>
 
@@ -85,7 +93,7 @@ const TwoFactorAuth = ({ onComplete, onCancel }: TwoFactorAuthProps) => {
               
               <Button 
                 variant="outline" 
-                onClick={onCancel}
+                onClick={handleCancel}
                 className="w-full"
               >
                 Cancel

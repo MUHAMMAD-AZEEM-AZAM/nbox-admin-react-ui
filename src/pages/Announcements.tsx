@@ -1,123 +1,137 @@
 
 import Layout from "@/components/Layout";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Plus, Eye } from "lucide-react";
+import { Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
-import AnnouncementPreview from "@/components/AnnouncementPreview";
+import CreateAnnouncementModal from "@/components/CreateAnnouncementModal";
 
 const Announcements = () => {
-  const [showPreview, setShowPreview] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   const announcements = [
     {
-      title: "System Maintenance",
-      status: "Active",
+      title: "New Feature Release",
+      type: "Giveaway",
       date: "Jan 15, 2025",
-      type: "System"
+      badgeColor: "bg-green-100 text-green-800"
     },
     {
-      title: "New Features Update",
-      status: "Draft",
-      date: "Jan 14, 2025",
-      type: "Feature"
+      title: "System Maintenance",
+      type: "Update",
+      date: "Jan 18, 2025",
+      badgeColor: "bg-red-100 text-red-800"
     },
     {
-      title: "Holiday Schedule",
-      status: "Scheduled",
-      date: "Jan 13, 2025",
-      type: "General"
+      title: "New Feature Release",
+      type: "Fundraiser",
+      date: "Feb 03, 2025",
+      badgeColor: "bg-yellow-100 text-yellow-800"
     },
     {
-      title: "Security Alert",
-      status: "Active",
-      date: "Jan 12, 2025",
-      type: "Security"
+      title: "New Feature Release",
+      type: "General Information",
+      date: "Feb 11, 2025",
+      badgeColor: "bg-purple-100 text-purple-800"
+    },
+    {
+      title: "New Feature Release",
+      type: "Giveaway",
+      date: "Jan 15, 2025",
+      badgeColor: "bg-green-100 text-green-800"
+    },
+    {
+      title: "System Maintenance",
+      type: "Update",
+      date: "Jan 18, 2025",
+      badgeColor: "bg-red-100 text-red-800"
+    },
+    {
+      title: "New Feature Release",
+      type: "Fundraiser",
+      date: "Feb 03, 2025",
+      badgeColor: "bg-yellow-100 text-yellow-800"
+    },
+    {
+      title: "New Feature Release",
+      type: "General Information",
+      date: "Feb 11, 2025",
+      badgeColor: "bg-purple-100 text-purple-800"
     }
   ];
-
-  const getStatusColor = (status: string) => {
-    const colors: Record<string, string> = {
-      Active: "bg-green-100 text-green-800",
-      Draft: "bg-gray-100 text-gray-800",
-      Scheduled: "bg-orange-100 text-orange-800"
-    };
-    return colors[status] || "bg-gray-100 text-gray-800";
-  };
-
-  const handlePreview = () => {
-    setShowPreview(true);
-  };
-
-  const handlePreviewClose = () => {
-    setShowPreview(false);
-  };
-
-  const handlePreviewSuccess = () => {
-    setShowPreview(false);
-  };
 
   return (
     <Layout>
       <div className="p-6">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold">Announcements</h1>
-          <Button className="bg-blue-600 hover:bg-blue-700">
-            <Plus className="h-4 w-4 mr-2" />
-            Create Announcement
+          <h1 className="text-2xl font-semibold">Announcements</h1>
+          <Button 
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2"
+            onClick={() => setShowCreateModal(true)}
+          >
+            Create New Announcement
+            <Plus className="h-4 w-4" />
           </Button>
         </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Recent Announcements</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left py-3 px-4 font-medium text-gray-600">Title</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600">Type</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600">Status</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600">Date</th>
-                    <th className="text-left py-3 px-4 font-medium text-gray-600">Actions</th>
+        <div className="bg-white rounded-lg border">
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b bg-gray-50">
+                  <th className="text-left py-4 px-6 font-medium text-gray-600">Title</th>
+                  <th className="text-left py-4 px-6 font-medium text-gray-600">Type</th>
+                  <th className="text-left py-4 px-6 font-medium text-gray-600">Date</th>
+                  <th className="text-left py-4 px-6 font-medium text-gray-600">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {announcements.map((item, index) => (
+                  <tr key={index} className="border-b hover:bg-gray-50">
+                    <td className="py-4 px-6 font-medium">{item.title}</td>
+                    <td className="py-4 px-6">
+                      <Badge className={item.badgeColor}>
+                        {item.type}
+                      </Badge>
+                    </td>
+                    <td className="py-4 px-6 text-gray-600">{item.date}</td>
+                    <td className="py-4 px-6">
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </td>
                   </tr>
-                </thead>
-                <tbody>
-                  {announcements.map((item, index) => (
-                    <tr key={index} className="border-b hover:bg-gray-50">
-                      <td className="py-3 px-4 font-medium">{item.title}</td>
-                      <td className="py-3 px-4">{item.type}</td>
-                      <td className="py-3 px-4">
-                        <Badge className={getStatusColor(item.status)}>
-                          {item.status}
-                        </Badge>
-                      </td>
-                      <td className="py-3 px-4">{item.date}</td>
-                      <td className="py-3 px-4">
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={handlePreview}
-                        >
-                          <Eye className="h-4 w-4 mr-1" />
-                          Preview
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          
+          <div className="flex items-center justify-between p-4 border-t bg-gray-50">
+            <span className="text-sm text-gray-600">Showing 1 to 10 of 50 entries</span>
+            <div className="flex items-center space-x-2">
+              <Button variant="outline" size="sm" className="text-gray-600">
+                &lt;
+              </Button>
+              <Button size="sm" className="bg-blue-600 text-white">1</Button>
+              <Button variant="outline" size="sm" className="text-gray-600">2</Button>
+              <Button variant="outline" size="sm" className="text-gray-600">3</Button>
+              <Button variant="outline" size="sm" className="text-gray-600">4</Button>
+              <Button variant="outline" size="sm" className="text-gray-600">5</Button>
+              <Button variant="outline" size="sm" className="text-gray-600">6</Button>
+              <Button variant="outline" size="sm" className="text-gray-600">
+                &gt;
+              </Button>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        {showPreview && (
-          <AnnouncementPreview 
-            onClose={handlePreviewClose}
-            onSuccess={handlePreviewSuccess}
+        {showCreateModal && (
+          <CreateAnnouncementModal 
+            onClose={() => setShowCreateModal(false)}
           />
         )}
       </div>

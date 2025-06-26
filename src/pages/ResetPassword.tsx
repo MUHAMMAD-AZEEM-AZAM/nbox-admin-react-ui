@@ -12,8 +12,8 @@ const ResetPassword = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle reset password logic here
-    console.log("Reset password for:", email);
+    // Navigate to two factor auth instead of just logging
+    navigate("/two-factor-auth");
   };
 
   return (

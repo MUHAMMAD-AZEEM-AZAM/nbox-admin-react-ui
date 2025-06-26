@@ -45,6 +45,10 @@ const Sidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
 
+  const handleLogout = () => {
+    navigate("/login");
+  };
+
   return (
     <div className={cn(
       "bg-white h-screen shadow-lg transition-all duration-300 relative",
@@ -65,14 +69,13 @@ const Sidebar = () => {
       </Button>
 
       <div className="p-6 border-b">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center">
           <h1 className={cn(
             "text-2xl font-bold text-blue-600 transition-opacity duration-300",
             isCollapsed ? "opacity-0" : "opacity-100"
           )}>
             {!isCollapsed && "nbox"}
           </h1>
-          {!isCollapsed && <ChevronRight className="h-4 w-4 text-gray-400" />}
         </div>
       </div>
 
@@ -116,13 +119,24 @@ const Sidebar = () => {
                 <p className="text-sm font-medium">Olivia Rhye</p>
                 <p className="text-xs text-gray-500">olivia@nbox.com</p>
               </div>
-              <Button variant="ghost" size="sm" className="p-1">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="p-1"
+                onClick={handleLogout}
+              >
                 <LogOut className="h-4 w-4 text-gray-600" />
               </Button>
             </>
           )}
           {isCollapsed && (
-            <Button variant="ghost" size="sm" className="p-1 w-8 h-8" title="Logout">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="p-1 w-8 h-8" 
+              title="Logout"
+              onClick={handleLogout}
+            >
               <LogOut className="h-4 w-4 text-gray-600" />
             </Button>
           )}
