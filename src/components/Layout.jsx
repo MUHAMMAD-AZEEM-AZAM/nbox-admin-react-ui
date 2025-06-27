@@ -3,11 +3,7 @@ import Sidebar from "./Sidebar";
 import { Input } from "@/components/ui/input";
 import { Search, Bell } from "lucide-react";
 
-interface LayoutProps {
-  children: React.ReactNode;
-}
-
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children }) => {
   return (
     <div className="flex h-screen bg-gray-50">
       <Sidebar />

@@ -5,12 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { X } from "lucide-react";
 import { useState } from "react";
 
-interface AnnouncementPreviewProps {
-  onClose: () => void;
-  onSuccess: () => void;
-}
-
-const AnnouncementPreview = ({ onClose, onSuccess }: AnnouncementPreviewProps) => {
+const AnnouncementPreview = ({ onClose, onSuccess }) => {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const handleSend = () => {
