@@ -12,10 +12,14 @@ import {
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { logout } from "@/store/slices/authSlice";
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.auth.user);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const menuItems = [
@@ -46,6 +50,7 @@ const Sidebar = () => {
   };
 
   const handleLogout = () => {
+    dispatch(logout());
     navigate("/login");
   };
 
@@ -111,13 +116,13 @@ const Sidebar = () => {
       <div className="absolute bottom-0 left-0 right-0 p-4 border-t bg-gray-50">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
-            O
+            {user?.name?.charAt(0) || 'O'}
           </div>
           {!isCollapsed && (
             <>
               <div className="flex-1">
-                <p className="text-sm font-medium">Olivia Rhye</p>
-                <p className="text-xs text-gray-500">olivia@nbox.com</p>
+                <p className="text-sm font-medium">{user?.name || "Olivia Rhye"}</p>
+                <p className="text-xs text-gray-500">{user?.email || "olivia@nbox.com"}</p>
               </div>
               <Button 
                 variant="ghost" 

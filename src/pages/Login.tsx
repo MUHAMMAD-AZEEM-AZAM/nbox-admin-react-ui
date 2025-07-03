@@ -5,21 +5,28 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch } from "@/store/hooks";
+import { loginStart, loginSuccess } from "@/store/slices/authSlice";
 
-interface LoginProps {
-  onLogin: () => void;
-}
-
-const Login = ({ onLogin }: LoginProps) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    onLogin();
-    navigate("/dashboard");
+    dispatch(loginStart());
+    
+    // Simulate login process
+    setTimeout(() => {
+      dispatch(loginSuccess({
+        email: email,
+        name: "Olivia Rhye"
+      }));
+      navigate("/dashboard");
+    }, 1000);
   };
 
   return (
