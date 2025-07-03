@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { X, Upload, ChevronDown } from "lucide-react";
+import { X, Cloud, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import PreviewAnnouncementModal from "./PreviewAnnouncementModal";
 
@@ -39,32 +39,32 @@ const CreateAnnouncementModal = ({ onClose }: CreateAnnouncementModalProps) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-lg max-w-md w-full mx-4">
+      <div className="bg-white rounded-lg shadow-lg max-w-lg w-full mx-4">
         <div className="flex items-center justify-between p-6 border-b">
           <div>
-            <h2 className="text-lg font-semibold">Create New Announcement</h2>
-            <p className="text-sm text-gray-600 mt-1">Fill out the form below to create a new announcement</p>
+            <h2 className="text-xl font-semibold">Create New Announcement</h2>
+            <p className="text-sm text-gray-500 mt-1">Fill out the form below to create a new announcement</p>
           </div>
           <Button variant="ghost" size="sm" onClick={onClose}>
             <X className="h-4 w-4" />
           </Button>
         </div>
         
-        <div className="p-6 space-y-4">
+        <div className="p-6 space-y-6">
           <div>
-            <Label htmlFor="title" className="text-sm font-medium">Title</Label>
+            <Label htmlFor="title" className="text-sm font-medium text-gray-700 mb-2 block">Title</Label>
             <Input
               id="title"
               placeholder="Type here"
               value={formData.title}
               onChange={(e) => setFormData({...formData, title: e.target.value})}
-              className="mt-1"
+              className="w-full"
             />
           </div>
 
           <div>
-            <Label htmlFor="type" className="text-sm font-medium">Type of Announcement</Label>
-            <div className="relative mt-1">
+            <Label htmlFor="type" className="text-sm font-medium text-gray-700 mb-2 block">Type of Announcement</Label>
+            <div className="relative">
               <select 
                 id="type"
                 value={formData.type}
@@ -82,36 +82,40 @@ const CreateAnnouncementModal = ({ onClose }: CreateAnnouncementModalProps) => {
           </div>
 
           <div>
-            <Label htmlFor="message" className="text-sm font-medium">Message</Label>
+            <Label htmlFor="message" className="text-sm font-medium text-gray-700 mb-2 block">Message</Label>
             <Textarea
               id="message"
               placeholder="Type here"
               value={formData.message}
               onChange={(e) => setFormData({...formData, message: e.target.value})}
-              className="mt-1 min-h-[100px]"
+              className="w-full min-h-[100px] resize-none"
             />
           </div>
 
           <div>
-            <Label className="text-sm font-medium">Supporting Media <span className="text-gray-400">(Optional)</span></Label>
-            <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-              <div className="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Upload className="h-6 w-6 text-gray-400" />
+            <Label className="text-sm font-medium text-gray-700 mb-2 block">
+              Supporting Media <span className="text-gray-400 font-normal">(Optional)</span>
+            </Label>
+            <div className="border-2 border-dashed border-gray-200 rounded-lg p-12 text-center bg-gray-50">
+              <div className="flex flex-col items-center">
+                <div className="w-12 h-12 flex items-center justify-center mb-4">
+                  <Cloud className="h-8 w-8 text-gray-400" />
+                </div>
+                <Button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2">
+                  Upload Document
+                </Button>
               </div>
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                Upload Document
-              </Button>
             </div>
           </div>
         </div>
         
-        <div className="flex justify-between p-6 border-t bg-gray-50">
-          <Button variant="outline" onClick={onClose}>
+        <div className="flex justify-between items-center p-6 border-t bg-gray-50">
+          <Button variant="ghost" onClick={onClose} className="text-gray-600">
             Cancel
           </Button>
           <Button 
             onClick={handlePreview}
-            className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"
+            className="bg-blue-500 hover:bg-blue-600 text-white flex items-center gap-2"
           >
             Preview Announcement →
           </Button>
