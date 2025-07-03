@@ -10,8 +10,9 @@ const ResetPassword = () => {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    // Navigate to two factor auth instead of just logging
     navigate("/two-factor-auth");
   };
 

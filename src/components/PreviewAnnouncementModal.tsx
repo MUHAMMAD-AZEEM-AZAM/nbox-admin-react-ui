@@ -4,7 +4,17 @@ import { Badge } from "@/components/ui/badge";
 import { X } from "lucide-react";
 import { useState } from "react";
 
-const PreviewAnnouncementModal = ({ onClose, onEdit, formData }) => {
+interface PreviewAnnouncementModalProps {
+  onClose: () => void;
+  onEdit: () => void;
+  formData: {
+    title: string;
+    type: string;
+    message: string;
+  };
+}
+
+const PreviewAnnouncementModal = ({ onClose, onEdit, formData }: PreviewAnnouncementModalProps) => {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const handleConfirmSend = () => {

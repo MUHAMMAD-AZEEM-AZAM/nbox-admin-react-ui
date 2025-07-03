@@ -48,8 +48,8 @@ const Dashboard = () => {
     { name: "Mail Central", planType: "Tier 1", status: "Pending", paymentStatus: "Pending" }
   ];
 
-  const getStatusBadge = (status) => {
-    const variants = {
+  const getStatusBadge = (status: string) => {
+    const variants: Record<string, string> = {
       Active: "bg-green-100 text-green-800",
       Pending: "bg-orange-100 text-orange-800",
       Inactive: "bg-red-100 text-red-800"
@@ -57,8 +57,8 @@ const Dashboard = () => {
     return variants[status] || "bg-gray-100 text-gray-800";
   };
 
-  const getPaymentBadge = (status) => {
-    const variants = {
+  const getPaymentBadge = (status: string) => {
+    const variants: Record<string, string> = {
       Paid: "bg-green-100 text-green-800",
       Pending: "bg-orange-100 text-orange-800",
       Overdue: "bg-red-100 text-red-800"

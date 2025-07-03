@@ -54,6 +54,7 @@ const Sidebar = () => {
       "bg-white h-screen shadow-lg transition-all duration-300 relative",
       isCollapsed ? "w-16" : "w-64"
     )}>
+      {/* Toggle Button */}
       <Button
         variant="ghost"
         size="sm"

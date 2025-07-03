@@ -7,7 +7,11 @@ import { X, Upload, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import PreviewAnnouncementModal from "./PreviewAnnouncementModal";
 
-const CreateAnnouncementModal = ({ onClose }) => {
+interface CreateAnnouncementModalProps {
+  onClose: () => void;
+}
+
+const CreateAnnouncementModal = ({ onClose }: CreateAnnouncementModalProps) => {
   const [showPreview, setShowPreview] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
