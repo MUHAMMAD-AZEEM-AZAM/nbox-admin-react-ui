@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 interface LoginProps {
   onLogin: () => void;
@@ -14,12 +15,43 @@ const Login = ({ onLogin }: LoginProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    onLogin();
-    navigate("/dashboard");
+    setIsLoading(true);
+
+    try {
+      // Simulate API call - replace with actual login API
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Simulate random success/failure for demo
+      const isSuccess = Math.random() > 0.3;
+      
+      if (isSuccess) {
+        toast({
+          title: "Login Successful",
+          description: "Welcome back! Redirecting to dashboard...",
+        });
+        
+        onLogin();
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 1000);
+      } else {
+        throw new Error("Invalid credentials");
+      }
+    } catch (error) {
+      toast({
+        title: "Login Failed",
+        description: "Invalid email or password. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -73,8 +105,12 @@ const Login = ({ onLogin }: LoginProps) => {
             </button>
           </div>
 
-          <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700">
-            Login →
+          <Button 
+            type="submit" 
+            className="w-full bg-blue-600 hover:bg-blue-700"
+            disabled={isLoading}
+          >
+            {isLoading ? "Logging in..." : "Login →"}
           </Button>
         </form>
       </div>
