@@ -13,6 +13,7 @@ import TicketManagement from "./pages/TicketManagement";
 import CMRADetails from "./pages/CMRADetails";
 import ResetPassword from "./pages/ResetPassword";
 import TwoFactorAuth from "./pages/TwoFactorAuth";
+import SetNewPassword from "./pages/SetNewPassword";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,6 +34,7 @@ const App = () => {
             />
             <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/two-factor-auth" element={<TwoFactorAuth />} />
+            <Route path="/set-new-password" element={<SetNewPassword />} />
             {isAuthenticated ? (
               <>
                 <Route path="/" element={<Dashboard />} />

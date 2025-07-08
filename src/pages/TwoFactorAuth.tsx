@@ -35,7 +35,7 @@ const TwoFactorAuth = ({ onComplete, onCancel }: TwoFactorAuthProps) => {
     setIsVerified(true);
     setTimeout(() => {
       onComplete?.();
-      navigate("/dashboard");
+      navigate("/set-new-password");
     }, 2000);
   };
 
